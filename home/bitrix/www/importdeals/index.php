@@ -40,10 +40,30 @@ if($result['result']['ID']){
 			
 			foreach($dealDatas as $dealData){
 				
+				$responsible = $dealData['Verantwortliche'];
+				
+				if($responsible == "Stephan Althaus"){
+					$id = 199;
+				}else if($responsible == "Gerhard Kraft"){
+					$id = 33;
+				}else if($responsible == "Nils Rückert"){
+					$id = 1;
+				}else if($responsible == "Thomas Sturm"){
+					$id = 7;
+				}else if($responsible == "Claus Commercon"){
+					$id = 29;
+				}else if($responsible == "Michael Kirbach"){
+					$id = 25;
+				}else if($responsible == "Siegbert Tiedtke"){
+					$id = 160;
+				}else{
+					$id = 1;
+				}
+				
 				$data = array(
 					'fields' =>array(
 						'TITLE' => $dealData['Auftragsname'],
-						'ASSIGNED_BY_ID' => '1',
+						'ASSIGNED_BY_ID' => $id,
 						'DATE_CREATE' => date('Y-m-d',strtotime($dealData['Anfangsdatum'])),
 						'OPPORTUNITY' => $dealData['Betrag'],
 						'COMMENTS' => $dealData['Produkt'],
