@@ -36,7 +36,7 @@ if($result['result']['ID']){
 		
 		if(count($dealDatas) > 0){
 			
-			$response = array();
+			$response = $log_data = array();
 			
 			foreach($dealDatas as $dealData){
 				
@@ -87,6 +87,9 @@ if($result['result']['ID']){
 				/*echo '<pre>';print_r($lead);echo '</pre>'; exit;*/
 				
 				$response[] = $lead['result'];
+				
+				$dealData['responsible_person_with_id'] = $responsible.':'.$id;
+				$log_data[] = $dealData;
 			}
 			
 			if(count($response) > 0){
@@ -101,6 +104,11 @@ if($result['result']['ID']){
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 				$response = curl_exec($ch);
 				curl_close($ch);
+				
+				$logs  = "Automation script log: ".date("Y-m-d H:i:s").PHP_EOL
+						.print_r($log_data,true).PHP_EOL.
+				        "----------------------------------------------".PHP_EOL;
+				file_put_contents('script.log',$logs,FILE_APPEND);
 				
 				exit;
 				
